@@ -33,12 +33,12 @@ void main() {
   float c = texture2D(srcTex, texcoord).x;
 
   gl_FragColor = vec4(c);
-  if (c == 0./255.) {
+  if (c < 1e-5) {
     if (abs(n - 3./255.) < 1e-5) {
         gl_FragColor = vec4(1./255.);
     }
   } else {
-    if (n < 2./255. || n > 3./255.) {
+    if (abs(n - 2./255.) > 1e-5 && abs(n - 3./255.) > 1e-5) {
         gl_FragColor = vec4(0./255.);
     }
   }
