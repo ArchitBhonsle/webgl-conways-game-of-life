@@ -1,9 +1,10 @@
 import './style.css'
 
+const canvas = document.getElementById("main") as HTMLCanvasElement;
 
-
-const height = 100;
-const width = 100;
+const scale = 1;
+const height = Math.floor(canvas.clientHeight / scale);
+const width = Math.floor(canvas.clientWidth / scale);
 const realHeight = height + 2;
 const realWidth = width + 2;
 const data = new Uint8Array(realHeight * realWidth);
@@ -13,12 +14,10 @@ for (let i = 1; i <= height; ++i) {
     }
 }
 
-const canvas = document.getElementById("main") as HTMLCanvasElement;
 const ctx = canvas.getContext('2d')!;
 canvas.height = height;
 canvas.width = width;
 ctx.imageSmoothingEnabled = false;
-
 
 function paint() {
     const imageData = ctx.createImageData(width, height);
@@ -36,8 +35,17 @@ function paint() {
 }
 const step = getStep();
 
-const delta = 50;
-setInterval(() => { paint(); step(); }, delta);
+const delta = 1000 / 30;
+let lastPaint = 0;
+function animate(now: number) {
+    if (now - lastPaint > delta) {
+        lastPaint = now;
+        paint();
+        step();
+    }
+    requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate)
 
 function getStep() {
     // printData();
