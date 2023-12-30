@@ -4,9 +4,11 @@ import getPaint from './paint.ts';
 
 const canvas = document.getElementById("main") as HTMLCanvasElement;
 
-const scale = 10;
-const height = Math.floor(canvas.clientHeight / scale);
-const width = Math.floor(canvas.clientWidth / scale);
+const FPS = 10;
+const SCALE = 10;
+
+const height = Math.floor(canvas.clientHeight / SCALE);
+const width = Math.floor(canvas.clientWidth / SCALE);
 const realHeight = height + 2;
 const realWidth = width + 2;
 const data = new Uint8Array(realHeight * realWidth);
@@ -19,8 +21,7 @@ for (let i = 1; i <= height; ++i) {
 const paint = getPaint(canvas, data, height, width);
 const step = getStep(data, height, width);
 
-const fps = 10;
-const delta = 1000 / fps;
+const delta = 1000 / FPS;
 let lastPaint = 0;
 function animate(now: number) {
     if (now - lastPaint > delta) {

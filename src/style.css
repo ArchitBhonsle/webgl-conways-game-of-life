@@ -11,5 +11,6 @@ html, body {
 }
 
 #main {
-    border: 1px solid black;
+
+    image-rendering: pixelated;
 }

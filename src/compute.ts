@@ -45,9 +45,7 @@ void main() {
 }
 `;
 
-    const canvas = document.createElement('canvas');
-    canvas.width = realWidth;
-    canvas.height = realHeight;
+    const canvas = new OffscreenCanvas(realWidth, realHeight);
     const gl = canvas.getContext('webgl2')!;
     const program = createProgram(gl, vs, fs)!;
 
