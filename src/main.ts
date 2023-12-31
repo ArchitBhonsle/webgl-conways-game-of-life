@@ -1,11 +1,11 @@
 import './style.css';
 import getStep from './compute.ts';
 import getPaint from './paint.ts';
-import { createSetter, brGlider, tlGlider } from './shapes.ts';
+import { createSetter, gliderGun } from './shapes.ts';
 
 const canvas = document.getElementById("main") as HTMLCanvasElement;
 
-const FPS = 10;
+const FPS = 60;
 const SCALE = 10;
 
 const height = Math.floor(canvas.clientHeight / SCALE);
@@ -14,15 +14,7 @@ const realHeight = height + 2;
 const realWidth = width + 2;
 const data = new Uint8Array(realHeight * realWidth);
 const set = createSetter(data, height, width);
-for (let i = 0; i < height; ++i) {
-    for (let j = 0; j < width; ++j) {
-        if (Math.random() > 0.996)
-            if (Math.random() > 0.5)
-                brGlider(set, i, j);
-            else
-                tlGlider(set, i, j);
-    }
-}
+gliderGun(set, 2, 2);
 
 const paint = getPaint(canvas, data, height, width);
 const step = getStep(data, height, width);
